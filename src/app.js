@@ -6,7 +6,7 @@ const productManager = new ProductManager();
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-app.listen(8080, () => console.log('Tuki'));
+app.listen(8080, () => console.log('Iniciando servidor en puerto 8080'));
 
 app.get('/products', async (req,res) => {
         const limit = req.query.limit;
@@ -32,3 +32,8 @@ app.get('/products/:pid', async (req, res) => {
     res.send(productId)
 
 })
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
