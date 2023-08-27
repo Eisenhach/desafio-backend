@@ -1,4 +1,4 @@
-const fs = require("fs");
+import fs from "fs";
 
 class productManager {
   static id = 0;
@@ -18,7 +18,8 @@ class productManager {
   async getId() {
     let data = await this.getProducts();
     return data.length + 1;
-  } catch (err){
+  }
+  catch(err) {
     console.error("Error al leer el archivo de productos", err);
     return [];
   }
@@ -49,7 +50,10 @@ class productManager {
           console.log("El código está siendo repetido");
         } else {
           data.push({ ...newProduct, id: await this.getId() });
-          await fs.promises.writeFile(this.path, JSON.stringify(data, null, "\t"));
+          await fs.promises.writeFile(
+            this.path,
+            JSON.stringify(data, null, "\t")
+          );
         }
       }
     } catch (err) {
@@ -120,15 +124,9 @@ const resultadoAsyncrono = async () => {
     5
   );
 
- 
   console.log(await manager.getProducts());
-
-
 };
 
 resultadoAsyncrono();
 
-
-
-
-module.exports = productManager;
+export default productManager;

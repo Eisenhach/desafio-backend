@@ -1,5 +1,5 @@
 [
-		{
+	{
 		"title": "iPhone 13 Pro",
 		"description": "El último modelo de iPhone",
 		"price": 999,
@@ -24,6 +24,19 @@
 		"thumbnail": "macbook.jpg",
 		"code": "macbook789",
 		"stock": 5,
+		"id": 4
+	},
+	{
+		"title": {
+			"title": "MacBook Air 23",
+			"description": "Laptop ligera de Apple",
+			"price": 1299,
+			"code": "macbook789",
+			"stock": 5,
+			"category": "Computadoras",
+			"status": true,
+			"id": 4
+		},
 		"id": 4
 	}
 ]

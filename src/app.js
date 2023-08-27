@@ -1,7 +1,11 @@
-const express = require('express');
+import express from 'express';
+import productsRouter from './routes/productsRouter.js';
+import ProductManager from '../productManager.js';
+
+
 const app = express();
-const ProductManager = require('../productManager');
 const productManager = new ProductManager();
+
 
 
 app.use(express.json());
@@ -33,7 +37,14 @@ app.get('/products/:pid', async (req, res) => {
 
 })
 
+// Endpoints
+app.use('/api/products', productsRouter)
+
+
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something broke!');
 });
+
+
+export { app, productManager }
