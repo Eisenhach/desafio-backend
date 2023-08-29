@@ -33,7 +33,7 @@ router.post("/", async (req, res) => {
 
     if (!title || !description || !code || !price || !stock || !category) {
       return res
-        .status(404)
+        .status(400)
         .json({ error: "Todos los campos son obligatorios" });
     }
 
@@ -54,10 +54,22 @@ router.post("/", async (req, res) => {
     await productManager.addProduct(newProduct);
     res.status(201).json(newProduct);
   } catch (error) {
+    console.error("Error al agregar el producto:", error);
     res.status(500).json({ error: "Error al agregar el producto" });
   }
 });
 
-router.put("/:pid", async (req, res) => {});
+router.put("/:pid", async (req, res) => {
+  let id = parseInt(req.params.pid);
+  let update = req.body;
+  await productManager.updateProduct(id, update);
+  res.send("updated product");
+});
+
+router.delete("/:pid", async (req, res) => {
+  let id = parseInt(req.params.pid);
+  await productManager.deleteProduct(id);
+  res.send("Deleted Product");
+});
 
 export default router;

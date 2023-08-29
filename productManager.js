@@ -16,9 +16,16 @@ class productManager {
   }
 
   async getId() {
-    let data = await this.getProducts();
-    return data.length + 1;
+    try {
+      const data = await this.getProducts();
+      const lastProduct = data[data.length - 1];
+      const newId = lastProduct ? lastProduct.id + 1 : 1;
+      return newId;
+    } catch (err) {
+      console.error("Error al leer el archivo de productos", err);
+    }
   }
+
   catch(err) {
     console.error("Error al leer el archivo de productos", err);
     return [];
