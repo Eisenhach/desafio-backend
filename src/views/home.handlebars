@@ -1,0 +1,10 @@
+{{#each products}}
+  <p>{{this.title}}</p>
+  <p>{{this.description}}</p>
+
+{{/each}}
+
+<button type="button" id="btnUpdate">Update products</button>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>

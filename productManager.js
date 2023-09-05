@@ -103,34 +103,6 @@ const resultadoAsyncrono = async () => {
   const manager = new productManager();
   console.log(await manager.getProducts());
 
-  // Añadir productos
-  await manager.addProduct(
-    "iPhone 13 Pro",
-    "El último modelo de iPhone",
-    999,
-    "iphone.jpg",
-    "iphone123",
-    10
-  );
-
-  await manager.addProduct(
-    "Samsung Galaxy S21",
-    "Potente smartphone Android",
-    799,
-    "samsung.jpg",
-    "samsung456",
-    15
-  );
-
-  await manager.addProduct(
-    "MacBook Air",
-    "Laptop ligera de Apple",
-    1299,
-    "macbook.jpg",
-    "macbook789",
-    5
-  );
-
   console.log(await manager.getProducts());
 };
 
