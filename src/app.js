@@ -1,9 +1,10 @@
 import express from "express";
 import productsRouter from "./routes/productsRouter.js";
-import ProductManager from "../productManager.js";
+import ProductManager from "./dao/filesystem/productManager.js";
 import cartRouter from "./routes/cartsRouter.js";
 import viewRouter from "./routes/viewsRouter.js";
 import handlebars from "express-handlebars";
+import mongoose from "mongoose";
 import { Server } from "socket.io";
 import { __dirname } from "./path.js";
 
@@ -15,6 +16,14 @@ sv.on("error", (error) => console.log(error));
 const socketSv = new Server(sv);
 const productManager = new ProductManager();
 
+// me conecto a mi sv atlas
+mongoose.connect(
+  "mongodb+srv://eisenhachtomas:lVDRaVeAdUENQeV0@cluster0.mlljscz.mongodb.net/?retryWrites=true&w=majority"
+);
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.engine("handlebars", handlebars.engine());
 app.set("views" + __dirname + "views");
 app.set("view engine", "handlebars");
@@ -25,9 +34,6 @@ app.use((req, res, next) => {
   req.context = { socketSv };
   next();
 });
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 // Endpoints
 app.use("/", viewRouter);
