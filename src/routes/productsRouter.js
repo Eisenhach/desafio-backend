@@ -16,15 +16,14 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:pid", async (req, res) => {
-  const pid = parseInt(req.params.pid, 10);
-  const producto = await productMgr.getProducts();
+  const pid = req.params.pid;
+  const product = await productMgr.getProductsById(pid);
 
-  const productId = producto.find(({ id }) => id === pid);
-  if (productId === undefined) {
-    return res.status(404).send();
+  if (!product) {
+    return res.status(404).send("Producto no encontrado");
   }
 
-  res.send(productId);
+  res.send(product);
 });
 
 router.post("/", async (req, res) => {
@@ -61,14 +60,14 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/:pid", async (req, res) => {
-  let id = parseInt(req.params.pid);
+  let id = req.params.pid;
   let update = req.body;
   await productMgr.updateProduct(id, update);
   res.send("updated product");
 });
 
 router.delete("/:pid", async (req, res) => {
-  let id = parseInt(req.params.pid);
+  let id = req.params.pid;
   await productMgr.deleteProduct(id);
   res.send("Deleted Product");
 });

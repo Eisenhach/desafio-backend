@@ -17,8 +17,8 @@ class productManager {
 
   async getProductsById(id) {
     try {
-      const data = await productModel.find({ _id: id });
-      return data.id;
+      const data = await productModel.findById({ _id: id }).lean();
+      return data;
     } catch (error) {
       console.error("Error al buscar por ese ID", error);
     }
@@ -35,7 +35,6 @@ class productManager {
       }
     } catch (error) {
       console.error("Error al eliminar el producto:", error);
-      throw new Error("Error al eliminar el producto");
     }
   }
 
