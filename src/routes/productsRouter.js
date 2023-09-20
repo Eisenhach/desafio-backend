@@ -1,11 +1,12 @@
 import { Router } from "express";
-import { productManager } from "../app.js";
+import productManager from "../dao/database/productManager.js";
 
 const router = Router();
+const productMgr = new productManager();
 
 router.get("/", async (req, res) => {
   const limit = req.query.limit;
-  const producto = await productManager.getProducts();
+  const producto = await productMgr.getProducts();
 
   if (limit) {
     return res.send(producto.slice(0, limit));
@@ -16,7 +17,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:pid", async (req, res) => {
   const pid = parseInt(req.params.pid, 10);
-  const producto = await productManager.getProducts();
+  const producto = await productMgr.getProducts();
 
   const productId = producto.find(({ id }) => id === pid);
   if (productId === undefined) {
@@ -31,13 +32,13 @@ router.post("/", async (req, res) => {
     const { title, description, code, price, stock, category, thumbnails } =
       req.body;
 
-    if (!title || !description || !code || !price || !stock || !category) {
+    if (!title || !description || !price || !stock || !category) {
       return res
         .status(400)
         .json({ error: "Todos los campos son obligatorios" });
     }
 
-    const newProductId = await productManager.getId();
+    const newProductId = await productMgr.getProductsById();
 
     const newProduct = {
       title,
@@ -51,7 +52,7 @@ router.post("/", async (req, res) => {
       id: newProductId,
     };
 
-    await productManager.addProduct(newProduct);
+    await productMgr.addProduct(newProduct);
     res.status(201).json(newProduct);
   } catch (error) {
     console.error("Error al agregar el producto:", error);
@@ -62,13 +63,13 @@ router.post("/", async (req, res) => {
 router.put("/:pid", async (req, res) => {
   let id = parseInt(req.params.pid);
   let update = req.body;
-  await productManager.updateProduct(id, update);
+  await productMgr.updateProduct(id, update);
   res.send("updated product");
 });
 
 router.delete("/:pid", async (req, res) => {
   let id = parseInt(req.params.pid);
-  await productManager.deleteProduct(id);
+  await productMgr.deleteProduct(id);
   res.send("Deleted Product");
 });
 

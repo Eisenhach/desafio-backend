@@ -1,6 +1,6 @@
 import express from "express";
 import productsRouter from "./routes/productsRouter.js";
-import ProductManager from "./dao/filesystem/productManager.js";
+import ProductManager from "./dao/fileSystem/productManager.js";
 import cartRouter from "./routes/cartsRouter.js";
 import viewRouter from "./routes/viewsRouter.js";
 import handlebars from "express-handlebars";
@@ -18,8 +18,14 @@ const productManager = new ProductManager();
 
 // me conecto a mi sv atlas
 mongoose.connect(
-  "mongodb+srv://eisenhachtomas:lVDRaVeAdUENQeV0@cluster0.mlljscz.mongodb.net/?retryWrites=true&w=majority"
+  "mongodb+srv://eisenhachtomas:coderhouse123@ecommerce.qcgvpfh.mongodb.net/?retryWrites=true&w=majority"
 );
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "MongoDB connection error"));
+db.once("open", () => {
+  console.log("Connection to MongoDB established successfully");
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

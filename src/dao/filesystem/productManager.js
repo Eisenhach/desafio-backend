@@ -101,9 +101,6 @@ class productManager {
 
 const resultadoAsyncrono = async () => {
   const manager = new productManager();
-  console.log(await manager.getProducts());
-
-  console.log(await manager.getProducts());
 };
 
 resultadoAsyncrono();
