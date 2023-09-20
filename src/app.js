@@ -1,7 +1,7 @@
 import express from "express";
 import productsRouter from "./routes/productsRouter.js";
-import ProductManager from "./dao/fileSystem/productManager.js";
-import cartRouter from "./routes/cartsRouter.js";
+import ProductManager from "./dao/database/productManager.js";
+import cartsRouter from "./routes/cartsRouter.js";
 import viewRouter from "./routes/viewsRouter.js";
 import handlebars from "express-handlebars";
 import mongoose from "mongoose";
@@ -44,7 +44,7 @@ app.use((req, res, next) => {
 // Endpoints
 app.use("/", viewRouter);
 app.use("/api/products", productsRouter);
-app.use("api/carts", cartRouter);
+app.use("api/carts", cartsRouter);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
