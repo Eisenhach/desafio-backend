@@ -8,9 +8,15 @@ viewsRouter.get("/realtimeproducts", async (req, res) => {
   res.render("home", { products });
 
   req.context.socketSv.on("connection", (socket) => {
-    console.log(`Client connected with the id ${socket.id}`);
+    console.log(
+      `Client connected in realtimeproducts with the id ${socket.id}`
+    );
     req.context.socketSv.emit("products", products);
   });
+});
+
+viewsRouter.get("/chat", async (req, res) => {
+  res.render("chat");
 });
 
 export default viewsRouter;

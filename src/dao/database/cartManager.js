@@ -51,6 +51,20 @@ class cartManager {
       console.error("Error al añadir el producto al carrito", error);
     }
   }
+
+  async deleteProduct(id) {
+    try {
+      const data = await cartModel.deleteOne({ _id: id });
+
+      if (data.deletedCount > 0) {
+        return "Producto eliminado del carrito";
+      } else {
+        return "Hubo un error eliminando el producto";
+      }
+    } catch (error) {
+      console.error("Error eliminando el producto", error);
+    }
+  }
 }
 
 export default cartManager;

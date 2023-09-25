@@ -44,7 +44,7 @@ app.use((req, res, next) => {
 // Endpoints
 app.use("/", viewRouter);
 app.use("/api/products", productsRouter);
-app.use("api/carts", cartsRouter);
+app.use("/api/carts", cartsRouter);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
