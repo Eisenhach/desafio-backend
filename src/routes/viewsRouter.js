@@ -24,7 +24,9 @@ viewsRouter.get("/chat", async (req, res) => {
 });
 
 viewsRouter.get("/products", async (req, res) => {
-  res.render("products", {});
+  const respuesta = await productManager.getPaginateProducts();
+
+  res.render("products", { respuesta });
 });
 
 export default viewsRouter;
