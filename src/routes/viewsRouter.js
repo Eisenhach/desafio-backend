@@ -5,7 +5,7 @@ const viewsRouter = Router();
 
 viewsRouter.get("/realtimeproducts", async (req, res) => {
   const products = await productManager.getProducts();
-  res.render("home", { products });
+  res.render("realtimeproducts", { products });
 
   req.context.socketSv.on("connection", (socket) => {
     console.log(
@@ -16,7 +16,15 @@ viewsRouter.get("/realtimeproducts", async (req, res) => {
 });
 
 viewsRouter.get("/chat", async (req, res) => {
-  res.render("chat");
+  res.render("chat", {});
+
+  req.context.socketSv.on("connection", (socket) => {
+    console.log(`Client conected in CHAT with the id ${socket.id}`);
+  });
+});
+
+viewsRouter.get("/products", async (req, res) => {
+  res.render("products", {});
 });
 
 export default viewsRouter;

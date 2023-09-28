@@ -1,29 +1,44 @@
 import { Router } from "express";
 import productManager from "../dao/database/productManager.js";
+import { productModel } from "../dao/models/product.model.js";
 
 const router = Router();
 const productMgr = new productManager();
 
 router.get("/", async (req, res) => {
-  const limit = req.query.limit;
-  const producto = await productMgr.getProducts();
+  const { limit, page, sort, query } = req.query;
 
-  if (limit) {
-    return res.send(producto.slice(0, limit));
-  }
+  const sortObjetMapper = {
+    asc: { price: 1 },
+    desc: { price: -1 },
+  };
 
-  res.send(producto);
-});
+  const modelQuery = query ? JSON.parse(query) : {};
+  const modelLimit = limit ? parseInt(limit, 10) : 10;
+  const modelPage = page ? parseInt(page, 10) : 1;
+  const modelSort = sortObjetMapper[sort] ?? undefined;
 
-router.get("/:pid", async (req, res) => {
-  const pid = req.params.pid;
-  const product = await productMgr.getProductsById(pid);
+  const products = await productModel.paginate(modelQuery, {
+    limit: modelLimit,
+    page: modelPage,
+    sort: modelSort,
+  });
 
-  if (!product) {
-    return res.status(404).send("Producto no encontrado");
-  }
+  const response = {
+    status: "success",
+    payload: products.docs,
+    totalDocs: products.totalDocs,
+    limit: products.limit,
+    totalPages: products.totalPages,
+    page: products.page,
+    pagingCounter: products.pagingCounter,
+    hasPrevPage: products.hasPrevPage,
+    hasNextPage: products.hasNextPage,
+    prevPage: products.prevPage,
+    nextPage: products.nextPage,
+  };
 
-  res.send(product);
+  res.send(response);
 });
 
 router.post("/", async (req, res) => {
@@ -31,7 +46,7 @@ router.post("/", async (req, res) => {
     const { title, description, code, price, stock, category, thumbnails } =
       req.body;
 
-    if (!title || !description || !price || !stock || !category) {
+    if (!title || !description || !price || !stock) {
       return res
         .status(400)
         .json({ error: "Todos los campos son obligatorios" });
