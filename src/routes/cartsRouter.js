@@ -1,5 +1,6 @@
 import { Router } from "express";
 import cartManager from "../dao/database/cartManager.js";
+import { cartModel } from "../dao/models/cart.model.js";
 
 const cartsRouter = Router();
 const cartMgr = new cartManager();
@@ -15,39 +16,35 @@ cartsRouter.get("/", async (req, res) => {
 });
 
 cartsRouter.post("/", async (req, res) => {
-  try {
-    const newCartData = req.body;
-    const newCart = await cartMgr.addCart(newCartData);
-    res.status(200).json(newCart);
-  } catch (error) {
-    console.error("Error al agregar el carrito", error);
-    res.status(500).json({ error: "Error al agregar el carrito" });
-  }
-});
-
-cartsRouter.get("/:cid", async (req, res) => {
-  const cid = req.params.cid;
-  const cart = await cartMgr.addCart(cid);
-
-  if (!cart) {
-    return res.status(404).send("No encontrado en el carrito por esa ID");
-  }
-
+  const { products } = req.body;
+  const cart = await cartModel.create({ products });
   res.send(cart);
+});
+//
+cartsRouter.get("/:cid", async (req, res) => {
+  const cart = await cartModel
+    .findOne({ _id: req.params.cid })
+    .populate("products.product");
+  res.send(cart.products);
 });
 
 cartsRouter.post("/:cid/product/:pid", async (req, res) => {
-  const cid = req.params.cid;
-  const pid = req.params.pid;
+  const cart = await cartModel.findOne({ _id: req.params.cid });
+  const oldProduct = cart.products.find(
+    ({ product }) => product.toString() === req.params.pid
+  );
 
-  try {
-    await cartMgr.addProductsToCart(cid, pid);
-    res.send("Producto añadido al carrito con exito");
-  } catch (error) {
-    console.error("Error al agregar el producto al carrito", error);
-
-    res.status(500).send("Error al agrear el producto al carrito");
+  if (oldProduct) {
+    oldProduct.quantity += 1;
+  } else {
+    cart.products.push({
+      product: req.params.pid,
+      quantity: 1,
+    });
   }
+
+  const update = await cartModel.updateOne({ _id: req.params.cid }, cart);
+  res.send(update);
 });
 
 export default cartsRouter;
