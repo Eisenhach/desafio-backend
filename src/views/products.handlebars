@@ -1,11 +1,8 @@
-{{#each products}}
-  <div>
-    <p>{{this.title}}</p>
-    <p>{{this.description}}</p>
-
-  </div>
+{{#each products.payload}}
+  <h2>{{this.title}}</h2>
+  <p>{{this.description}}</p>
 
 {{/each}}
 
 <script src="/socket.io/socket.io.js"></script>
-<script src="/js/index.js"></script>
+<script src="/js/productPaginate.js"></script>

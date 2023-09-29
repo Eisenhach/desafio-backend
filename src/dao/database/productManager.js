@@ -102,8 +102,8 @@ class productManager {
       limit: modelLimit,
       page: modelPage,
       sort: modelSort,
+      lean: true,
     });
-
     const respuesta = {
       status: "success",
       payload: products.docs,
