@@ -2,7 +2,7 @@ import express from "express";
 import productsRouter from "./routes/productsRouter.js";
 import ProductManager from "./dao/database/productManager.js";
 import cartsRouter from "./routes/cartsRouter.js";
-import viewRouter from "./routes/viewsRouter.js";
+import viewsRouter from "./routes/viewsRouter.js";
 import handlebars from "express-handlebars";
 import mongoose from "mongoose";
 import { Server } from "socket.io";
@@ -42,7 +42,7 @@ app.use((req, res, next) => {
 });
 
 // Endpoints
-app.use("/", viewRouter);
+app.use("/", viewsRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 

@@ -24,9 +24,13 @@ viewsRouter.get("/chat", async (req, res) => {
 });
 
 viewsRouter.get("/products", async (req, res) => {
-  const respuesta = await productManager.getPaginateProducts();
+  const products = await productManager.getProductsForView();
+  res.render("products", { products });
 
-  res.render("products", { respuesta });
+  req.context.socketSv.on("connection", (socket) => {
+    console.log(`Cliente conectado a PRODUCTS con el id ${socket.id}`);
+    req.context.socketSv.emit("products", products);
+  });
 });
 
 export default viewsRouter;
