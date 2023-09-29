@@ -24,7 +24,11 @@ viewsRouter.get("/chat", async (req, res) => {
 });
 
 viewsRouter.get("/products", async (req, res) => {
-  const products = await productManager.getProductsForView();
+  const products = await productManager.getProductsForView(
+    req.query.limit,
+    req.query.page,
+    req.query.sort
+  );
   res.render("products", { products });
 
   req.context.socketSv.on("connection", (socket) => {

@@ -1,8 +1,29 @@
-{{#each products.payload}}
-  <h2>{{this.title}}</h2>
-  <p>{{this.description}}</p>
+<div class="bg-[#000] pt-1 pb-1">
+  <p
+    class="text-[#efecfb] font-[Montserrat] text-center text-sm"
+  >BIENVENIDOS</p>
+</div>
+<header>
 
-{{/each}}
+  <nav class="flex justify-center font-[Montserrat] bg-[#efecfb]">
+    <ul class="flex space-x-20 text-xl mt-4 mb-4">
+      <li><a href="#">INICIO</a></li>
+      <li><a href="#">PRODUCTOS</a></li>
+      <li><a href="#">CONTACTO</a></li>
+      <li><a href="#">
+          <i class="fa-solid fa-cart-shopping" style="color: #000000;"></i>
+        </a></li>
+    </ul>
+  </nav>
+
+</header>
+{{!-- 
+{{#each products.payload}}
+  <div>
+    <h2>{{this.title}}</h2>
+    <p>{{this.description}}</p>
+  </div>
+{{/each}} --}}
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/productPaginate.js"></script>
