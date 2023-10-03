@@ -94,7 +94,7 @@ class productManager {
     };
 
     const modelQuery = query ? JSON.parse(query) : {};
-    const modelLimit = limit ? parseInt(limit, 10) : 10;
+    const modelLimit = limit ? parseInt(limit, 10) : 6;
     const modelPage = page ? parseInt(page, 10) : 1;
     const modelSort = sortObjetMapper[sort] ?? undefined;
 

@@ -30,8 +30,9 @@ cartsRouter.get("/:cid", async (req, res) => {
 
 cartsRouter.post("/:cid/product/:pid", async (req, res) => {
   const cart = await cartModel.findOne({ _id: req.params.cid });
+
   const oldProduct = cart.products.find(
-    ({ product }) => product.toString() === req.params.pid
+    ({ product }) => product === req.params.pid
   );
 
   if (oldProduct) {
@@ -46,5 +47,9 @@ cartsRouter.post("/:cid/product/:pid", async (req, res) => {
   const update = await cartModel.updateOne({ _id: req.params.cid }, cart);
   res.send(update);
 });
+
+cartsRouter.delete("/:cid/products/:pid"), async (req, res) => {};
+
+cartsRouter.put("/:cid", async (req, res) => {});
 
 export default cartsRouter;

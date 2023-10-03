@@ -19,195 +19,59 @@
 
 <section class="flex justify-center">
 
-  <div class="container">
+  <div class="container mx-auto">
 
-    <figure class="bg-[#dcefee] rounded-xl h-auto mt-5">
-      <div class="flex justify-center pt-3">
-        <h2>CATEGORIA - REMERAS</h2>
+    <div class="bg-[#dcefee] rounded-xl p-6 mt-5">
+      <h2 class="text-center font-[Montserrat] mb-4">CATEGORIA - REMERAS</h2>
+
+      {{! CART }}
+
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+      >
+        {{#each products.payload}}
+
+          <div class="bg-[#fff] p-0.5 shadow-md">
+            <img
+              src="/assets/remera.jpg"
+              alt="{{this.title}}"
+              class="object-cover h-auto w-full mb-2"
+            />
+            <h3
+              class="text-lg font:[Montserrat] mb-2 text-center"
+              data-title="{{this.title}}"
+            >{{this.title}}</h3>
+            <div class="flex items-center justify-between text-2xl">
+              <div class="flex-1 flex items-center justify-center">
+                <span class="font:[Montserrat]">${{this.price}}</span>
+              </div>
+              <button class="btnCart" data-id="{{this._id}}"><i
+                  class="fa-solid fa-bag-shopping"
+                  style="color: #000000;"
+                ></i>
+              </button>
+            </div>
+          </div>
+        {{/each}}
       </div>
 
-      <div class="flex space-x-16 mt-3">
-        <div class="contenedor-cart space-x-44">
-
-          <div class="bg-[#fff] h-72 w-52 ml-36">
-            <img src="" alt="remera-1" />
-            <div class="text-center">
-              <h2>Térmico</h2>
-
-              <div class="flex justify-end space-x-12 mr-3">
-                <h2>$25.000</h2>
-                <button><i
-                    class="fa-solid fa-bag-shopping"
-                    style="color: #000000;"
-                  ></i>
-                </button>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="contenedor-cart space-x-20">
-
-          <div class="bg-[#fff] h-72 w-52">
-            <img src="" alt="remera-2" />
-            <div class="text-center">
-              <h2>Térmico</h2>
-
-              <div class="flex justify-end space-x-12 mr-3">
-                <h2>$25.000</h2>
-                <button><i
-                    class="fa-solid fa-bag-shopping"
-                    style="color: #000000;"
-                  ></i>
-                </button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="contenedor-cart space-x-20">
-
-          <div class="bg-[#fff] h-72 w-52">
-            <img src="" alt="remera-3" />
-            <div class="text-center">
-              <h2>Térmico</h2>
-
-              <div class="flex justify-end space-x-12 mr-3">
-                <h2>$25.000</h2>
-                <button><i
-                    class="fa-solid fa-bag-shopping"
-                    style="color: #000000;"
-                  ></i>
-                </button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="contenedor-cart space-x-20">
-
-          <div class="bg-[#fff] h-72 w-52">
-            <img src="" alt="remera-4" />
-            <div class="text-center">
-              <h2>Térmico</h2>
-
-              <div class="flex justify-end space-x-12 mr-3">
-                <h2>$25.000</h2>
-                <button><i
-                    class="fa-solid fa-bag-shopping"
-                    style="color: #000000;"
-                  ></i>
-                </button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-      <div class="flex space-x-16 mt-7">
-
-        <div class="contenedor-cart space-x-44">
-
-          <div class="bg-[#fff] h-72 w-52 ml-36">
-            <img src="" alt="remera-5" />
-            <div class="text-center">
-              <h2>Térmico</h2>
-
-              <div class="flex justify-end space-x-12 mr-3">
-                <h2>$25.000</h2>
-                <button><i
-                    class="fa-solid fa-bag-shopping"
-                    style="color: #000000;"
-                  ></i>
-                </button>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="contenedor-cart space-x-20">
-
-          <div class="bg-[#fff] h-72 w-52">
-            <img src="" alt="remera-6" />
-            <div class="text-center">
-              <h2>Térmico</h2>
-
-              <div class="flex justify-end space-x-12 mr-3">
-                <h2>$25.000</h2>
-                <button><i
-                    class="fa-solid fa-bag-shopping"
-                    style="color: #000000;"
-                  ></i>
-                </button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="contenedor-cart space-x-20">
-
-          <div class="bg-[#fff] h-72 w-52">
-            <img src="" alt="remera-7" />
-            <div class="text-center">
-              <h2>Térmico</h2>
-
-              <div class="flex justify-end space-x-12 mr-3">
-                <h2>$25.000</h2>
-                <button><i
-                    class="fa-solid fa-bag-shopping"
-                    style="color: #000000;"
-                  ></i>
-                </button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="contenedor-cart space-x-20">
-
-          <div class="bg-[#fff] h-72 w-52">
-            <img src="" alt="remera-8" />
-            <div class="text-center">
-              <h2>Térmico</h2>
-
-              <div class="flex justify-end space-x-12 mr-3">
-                <h2>$25.000</h2>
-                <button><i
-                    class="fa-solid fa-bag-shopping"
-                    style="color: #000000;"
-                  ></i>
-                </button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-      <div class="flex justify-center mt-3 pb-3 space-x-3">
+      {{! Paginación }}
+      <div class="flex justify-center mt-4 space-x-2">
         <button><i
             class="fa-solid fa-arrow-left"
             style="color: #000000;"
           ></i></button>
-        <h2>1</h2>
+        {{#with products}}
+          <span>{{page}}</span>
+        {{/with}}
         <button><i
             class="fa-solid fa-arrow-right"
             style="color: #000000;"
           ></i></button>
+
       </div>
 
-    </figure>
+    </div>
 
   </div>
 
@@ -232,18 +96,10 @@
   </div>
 
   <div class="text-[#efecfb] ml-3">
-    <h3>Developed by - Tomás Eisenhach | Design by - Agustina Acosta | 2023</h3>
+    <h3>Developed by - Tomás Eisenhach | 2023</h3>
   </div>
 
 </footer>
-
-{{!-- 
-{{#each products.payload}}
-  <div>
-    <h2>{{this.title}}</h2>
-    <p>{{this.description}}</p>
-  </div>
-{{/each}} --}}
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/productPaginate.js"></script>

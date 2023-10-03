@@ -21,7 +21,7 @@ mongoose.connect(
   "mongodb+srv://eisenhachtomas:coderhouse123@ecommerce.qcgvpfh.mongodb.net/?retryWrites=true&w=majority"
 );
 
-const db = mongoose.connection;
+export const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error"));
 db.once("open", () => {
   console.log("Connection to MongoDB established successfully");
@@ -31,7 +31,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.engine("handlebars", handlebars.engine());
-app.set("views" + __dirname + "views");
+app.set("views" + __dirname + "/views");
 app.set("view engine", "handlebars");
 app.set("views", "./src/views");
 app.use(express.static("./src/public"));
