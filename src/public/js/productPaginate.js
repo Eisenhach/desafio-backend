@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       try {
         const response = await fetch(
-          `http://localhost:8080/api/carts/651586d6255b065b95e28288/product/${productId}`,
+          `http://localhost:8080/api/carts/651cc09a80586b8b948e267d/product/${productId}`,
           {
             method: "POST",
           }
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: productTitle + `agregado al carrito`,
+            title: `${productTitle} + agregado al carrito`,
             showConfirmButton: false,
             timer: 1500,
           });

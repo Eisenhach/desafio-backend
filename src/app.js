@@ -1,4 +1,5 @@
 import express from "express";
+import session from "express-session";
 import productsRouter from "./routes/productsRouter.js";
 import ProductManager from "./dao/database/productManager.js";
 import cartsRouter from "./routes/cartsRouter.js";
@@ -29,6 +30,8 @@ db.once("open", () => {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Config session
 
 app.engine("handlebars", handlebars.engine());
 app.set("views" + __dirname + "/views");
