@@ -1,8 +1,10 @@
 import express from "express";
 import session from "express-session";
+import MongoStore from "connect-mongo";
 import productsRouter from "./routes/productsRouter.js";
 import ProductManager from "./dao/database/productManager.js";
 import cartsRouter from "./routes/cartsRouter.js";
+import userRouter from "./routes/userRouter.js";
 import viewsRouter from "./routes/viewsRouter.js";
 import handlebars from "express-handlebars";
 import mongoose from "mongoose";
@@ -32,6 +34,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Config session
+app.use(
+  session({
+    store: MongoStore.create({
+      mongoUrl:
+        "mongodb+srv://eisenhachtomas:coderhouse123@ecommerce.qcgvpfh.mongodb.net/?retryWrites=true&w=majority",
+      ttl: 15,
+    }),
+    secret: "super",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 app.engine("handlebars", handlebars.engine());
 app.set("views" + __dirname + "/views");
@@ -48,6 +62,7 @@ app.use((req, res, next) => {
 app.use("/", viewsRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
+app.use("/api", userRouter);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

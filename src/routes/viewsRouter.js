@@ -1,5 +1,7 @@
 import { Router } from "express";
 import { productManager } from "../app.js";
+import publicRoutes from "../middleware/publicRoutes.js";
+import privateRoutes from "../middleware/privateRoutes.js";
 
 const viewsRouter = Router();
 
@@ -35,6 +37,25 @@ viewsRouter.get("/products", async (req, res) => {
     console.log(`Cliente conectado a PRODUCTS con el id ${socket.id}`);
     req.context.socketSv.emit("products", products);
   });
+});
+
+viewsRouter.get("/login", publicRoutes, async (req, res) => {
+  res.render("login");
+});
+
+viewsRouter.get("/logout", async (req, res) => {
+  req.session.destroy();
+  res.redirect("/login");
+});
+
+viewsRouter.get("/signup", publicRoutes, async (req, res) => {
+  res.render("signup");
+});
+
+viewsRouter.get("/profile", privateRoutes, async (req, res) => {
+  const { first_name, last_name, email, age } = req.session;
+
+  res.render("profile", { first_name, last_name, email, age });
 });
 
 export default viewsRouter;
