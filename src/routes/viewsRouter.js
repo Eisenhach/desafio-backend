@@ -31,7 +31,10 @@ viewsRouter.get("/products", async (req, res) => {
     req.query.page,
     req.query.sort
   );
-  res.render("products", { products });
+
+  const user = req.session.first_name;
+
+  res.render("products", { products, user });
 
   req.context.socketSv.on("connection", (socket) => {
     console.log(`Cliente conectado a PRODUCTS con el id ${socket.id}`);
@@ -40,6 +43,15 @@ viewsRouter.get("/products", async (req, res) => {
 });
 
 viewsRouter.get("/login", publicRoutes, async (req, res) => {
+  const { email, password } = req.body;
+
+  if (email === "adminCoder@coder.com" && password === "adminCod3r123") {
+    req.session.role = "admin";
+    console.log("Admin logged");
+  } else {
+    req.session.role = "usuario";
+  }
+
   res.render("login");
 });
 
