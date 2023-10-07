@@ -1,8 +1,38 @@
 {{! Formulario de login }}
+<div class="flex items-center justify-center h-screen bg-[#144272]">
+  <form
+    action="http://localhost:8080/api/login"
+    method="post"
+    class="bg-[#fff] p-8 rounded shadow-md w-80"
+  >
+    <h2 class="text-2x1 font-[Montserrat] mb-5 text-center">Inicio de Sesión</h2>
+    <div class="mb-4">
+      <label for="email" class="block text-sm font-[Montserrat] mb-1">Correo
+        Electrónico</label>
+      <input
+        type="text"
+        name="email"
+        required
+        class="w-full p-2 border rounded focus:outline-none focus:border-[#bfeaf5]"
+      />
+    </div>
+    <div class="mb-4">
+      <label
+        for="password"
+        class="block text-sm font-[Montserrat] mb-1"
+      >Contraseña</label>
+      <input
+        type="text"
+        name="password"
+        required
+        class="w-full p-2 border rounded focus:outline-none focus:border-[#bfeaf5]"
+      />
+    </div>
+    <button
+      type="submit"
+      value="submit"
+      class="w-full bg-[#eafdfc] p-2 rounded hover:bg-[#bfeaf5] focus:outline-none focus:ring focus:ring-[#bfeaf5]"
+    >Enviar</button>
 
-<form action="http://localhost:8080/api/login" method="post">
-  <input type="text" name="email" value="email" />
-  <input type="text" name="password" value="password" />
-  <button type="submit" value="submit">Enviar</button>
-
-</form>
+  </form>
+</div>

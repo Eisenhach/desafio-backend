@@ -61,6 +61,15 @@ viewsRouter.get("/logout", async (req, res) => {
 });
 
 viewsRouter.get("/signup", publicRoutes, async (req, res) => {
+  const { email, password } = req.body;
+
+  if (email === "adminCoder@coder.com" && password === "adminCod3r123") {
+    req.session.role = "admin";
+    console.log("Admin logged");
+  } else {
+    req.session.role = "usuario";
+  }
+
   res.render("signup");
 });
 

@@ -9,7 +9,7 @@ userRouter.post("/signup", async (req, res) => {
   const userExists = await userModel.findOne({ email });
 
   if (userExists) {
-    return res.send("Ya te registraste con ese email");
+    return res.render("error");
   }
 
   const user = await userModel.create({
