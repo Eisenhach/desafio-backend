@@ -60,7 +60,7 @@ viewsRouter.get("/logout", async (req, res) => {
   res.redirect("/login");
 });
 
-viewsRouter.get("/signup", publicRoutes, async (req, res) => {
+viewsRouter.get("/register", publicRoutes, async (req, res) => {
   const { email, password } = req.body;
 
   if (email === "adminCoder@coder.com" && password === "adminCod3r123") {
@@ -78,5 +78,13 @@ viewsRouter.get("/profile", privateRoutes, async (req, res) => {
 
   res.render("profile", { first_name, last_name, email, age });
 });
+
+viewsRouter.get("/recover", publicRoutes, (req, res) => {
+  res.render("recover");
+});
+
+viewsRouter.get("/failregister", (req, res) => res.send("Fallo en registro"));
+
+viewsRouter.get("/faillogin", (req, res) => res.send("Fallo en login"));
 
 export default viewsRouter;

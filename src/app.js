@@ -10,6 +10,12 @@ import handlebars from "express-handlebars";
 import mongoose from "mongoose";
 import { Server } from "socket.io";
 import { __dirname } from "./path.js";
+//
+
+import passport from "passport";
+import initializePassport from "./config/passport.config.js";
+
+//
 
 const app = express();
 const sv = app.listen(8080, () =>
@@ -46,6 +52,8 @@ app.use(
     saveUninitialized: false,
   })
 );
+
+initializePassport();
 
 app.engine("handlebars", handlebars.engine());
 app.set("views" + __dirname + "/views");
