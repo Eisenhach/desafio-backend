@@ -1,5 +1,6 @@
 import passport from "passport";
 import local from "passport-local";
+import GithubStrategy from "passport-github2";
 import { userModel } from "../dao/models/user.model.js";
 import bcrypt from "bcrypt";
 
@@ -30,6 +31,22 @@ const initializePassport = () => {
     )
   );
 };
+
+passport.use(
+  "github",
+  new GithubStrategy(
+    {
+      clientID: "Iv1.9e552505ed39c8c4",
+      clientSecret: "08ff4d960cd130458c828e0c6771ea6bf7ec5e4b",
+      callbackURL: "http://localhost:8080/api/githubcallback",
+      scope: ["user: email"],
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      console.log(profile);
+      done(null);
+    }
+  )
+);
 
 passport.serializeUser((user, done) => {
   done(null, user._id);

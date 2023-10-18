@@ -51,4 +51,17 @@ userRouter.post("/recover", async (req, res) => {
   res.redirect("/login");
 });
 
+userRouter.get(
+  "/github",
+  passport.authenticate("github", { scope: ["user: email"] })
+);
+
+userRouter.get(
+  "/githubcallback",
+  passport.authenticate("github", { failureRedirect: "/login" }),
+  (req, res) => {
+    res.redirect("/products");
+  }
+);
+
 export default userRouter;
