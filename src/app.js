@@ -14,6 +14,7 @@ import { __dirname } from "./path.js";
 
 import passport from "passport";
 import initializePassport from "./config/passport.config.js";
+import dotenv from "dotenv";
 
 //
 
@@ -25,11 +26,11 @@ sv.on("error", (error) => console.log(error));
 const socketSv = new Server(sv);
 const productManager = new ProductManager();
 
-// me conecto a mi sv atlas
-mongoose.connect(
-  "mongodb+srv://eisenhachtomas:coderhouse123@ecommerce.qcgvpfh.mongodb.net/?retryWrites=true&w=majority"
-);
+//dotenv
+dotenv.config();
 
+// me conecto a mi sv atlas
+mongoose.connect(process.env.MONGODB_URL);
 export const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error"));
 db.once("open", () => {
@@ -39,15 +40,14 @@ db.once("open", () => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Config session
+// Config session   con .env
 app.use(
   session({
     store: MongoStore.create({
-      mongoUrl:
-        "mongodb+srv://eisenhachtomas:coderhouse123@ecommerce.qcgvpfh.mongodb.net/?retryWrites=true&w=majority",
+      mongoUrl: process.env.MONGODB_URL,
       ttl: 15,
     }),
-    secret: "super",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
   })
