@@ -1,9 +1,11 @@
-import { cartModel } from "../models/cart.model.js";
+import { CartRepository } from "../../repository/cart.repository.js";
+
+const cartRepository = new CartRepository();
 
 class cartManager {
   async getCarts() {
     try {
-      const carts = await cartModel.find().lean();
+      const carts = await cartRepository.get();
       return carts;
     } catch (error) {
       console.error("Fallo al obtener los productos", error);
@@ -12,7 +14,7 @@ class cartManager {
 
   async addCart(cart) {
     try {
-      const newCart = await cartModel.create(cart);
+      const newCart = await cartRepository.add(cart);
       return newCart;
     } catch (error) {
       console.error("Error en crear el cart", error);
@@ -21,7 +23,7 @@ class cartManager {
 
   async getCartById(id) {
     try {
-      const cart = await cartModel.findById(id);
+      const cart = await cartRepository.getById(id);
       return cart;
     } catch (error) {
       console.error("Error al obtener el cart por ID", error);
@@ -30,7 +32,7 @@ class cartManager {
 
   async addProductsToCart(cid, pid, product) {
     try {
-      const selectedCart = await cartModel.findById(cid);
+      const selectedCart = await cartRepository.addToCart(cid);
 
       if (!selectedCart) {
         return console.log("No encontrado");
@@ -54,7 +56,7 @@ class cartManager {
 
   async deleteProduct(id) {
     try {
-      const data = await cartModel.deleteOne({ _id: id });
+      const data = await cartRepository.delete(id);
 
       if (data.deletedCount > 0) {
         return "Producto eliminado del carrito";

@@ -2,7 +2,7 @@ import express from "express";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import productsRouter from "./routes/productsRouter.js";
-import ProductManager from "./dao/database/productManager.js";
+import ProductManager from "./dao/managers/productManager.js";
 import cartsRouter from "./routes/cartsRouter.js";
 import userRouter from "./routes/userRouter.js";
 import viewsRouter from "./routes/viewsRouter.js";

@@ -1,0 +1,11 @@
+1.en el controller instancio el manager
+// ( el manager debe pasar por una capa de repositorio)
+2. en el ProductRepository declarar la clase // en el manager se pasa el import de model al repository en vez del manager
+
+
+
+
+get de productos
+add
+put :id
+delete :id
