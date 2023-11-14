@@ -37,11 +37,9 @@ class cartManager {
       if (!selectedCart) {
         return console.log("No encontrado");
       }
-
       const existingProduct = selectedCart.products.find(
         (prod) => prod.id === pid
       );
-
       if (existingProduct) {
         existingProduct.quantity++;
       } else {

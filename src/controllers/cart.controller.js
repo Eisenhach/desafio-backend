@@ -41,8 +41,9 @@ export const getCartById = async (req, res) => {
 
 export const addProductToCart = async (req, res) => {
   try {
-    const { cid, pid } = req.params;
-    const cart = await cartMgr.addProductToCart(cid, pid);
+    const { cid } = req.params;
+    const { pid } = req.body;
+    const cart = await cartMgr.addProductsToCart(cid, pid);
     res.send(cart);
   } catch (error) {
     console.error("Error al agregar producto al carrito", error);
