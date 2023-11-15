@@ -13,4 +13,6 @@ cartsRouter.post("/:cid/product/:pid", cartController.addProductToCart);
 
 cartsRouter.delete("/:cid/product/:pid", cartController.removeProductFromCart);
 
+cartsRouter.get("/:cid/purchase", cartController.purchase);
+
 export default cartsRouter;

@@ -61,3 +61,15 @@ export const removeProductFromCart = async (req, res) => {
     res.status(500).json({ error: "Error 500 en el controller" });
   }
 };
+
+export const purchase = async (req, res) => {
+  try {
+    const cartId = req.params.cid.trim();
+    const purchaser = req.session.email;
+    const newTicket = await cartMgr.purchaseCart(cartId, purchaser);
+    res.status(200).send({ status: "success", ticket: newTicket });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send();
+  }
+};

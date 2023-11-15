@@ -1,6 +1,12 @@
 import { CartRepository } from "../../repository/cart.repository.js";
+import { ProductRepository } from "../../repository/product.repository.js";
+import { TicketRepository } from "../../repository/ticket.repository.js";
+import crypto from "crypto";
+import mongoose from "mongoose";
 
 const cartRepository = new CartRepository();
+const productRepository = new ProductRepository();
+const ticketRepository = new TicketRepository();
 
 class cartManager {
   async getCarts() {
@@ -65,6 +71,61 @@ class cartManager {
       console.error("Error eliminando el producto", error);
     }
   }
+
+  purchaseCart = async (id, purchaser) => {
+    try {
+      const cart = await cartRepository.getById(id);
+      const productsCart = cart.products;
+      console.log(cart, "cart");
+      console.log(productsCart, "productsCart");
+      let productsPurchased = [];
+      let productsNotPurchased = [];
+      let amount = 0;
+
+      if (productsCart.length === 0) {
+        return console.log(
+          "No puedes realizar la compra, ya que no tienes productos en el carrito."
+        );
+      }
+
+      for (const item of productsCart) {
+        const product = await productRepository.getById(id);
+
+        if (item.quantity <= product.stock) {
+          // Si hay suficiente stock, restar del stock y agregar al array de productos comprados
+          product.stock -= item.quantity;
+          await product.save();
+          productsPurchased.push(item);
+
+          // Calcular el total solo para los productos comprados
+          const productTotal = item.product.price * item.quantity;
+          amount += productTotal;
+        } else {
+          // Si no hay suficiente stock, agregar al array de productos no comprados
+          productsNotPurchased.push(item);
+        }
+      }
+
+      // Guardar el carrito actualizado
+      cart.products = productsNotPurchased;
+      await cart.save();
+
+      function generateUniqueCode() {
+        return crypto.randomBytes(12).toString("hex");
+      }
+      console.log(productsPurchased, "purcheased");
+      console.log(productsNotPurchased, "notPur");
+      console.log(amount);
+      const code = generateUniqueCode();
+      // Crear el ticket solo con los productos comprados
+      const newTicket = await ticketRepository.create(code, amount, purchaser);
+      console.log(newTicket, "newTicket");
+
+      return { newTicket, productsNotPurchased };
+    } catch (error) {
+      console.error(error);
+    }
+  };
 }
 
 export default cartManager;
