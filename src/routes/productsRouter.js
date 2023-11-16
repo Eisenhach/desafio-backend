@@ -6,11 +6,13 @@ import {
   deleteProduct,
 } from "../controllers/product.controller.js";
 
+import adminRoutes from "../middleware/adminRoutes.js";
+
 const router = express.Router();
 
 router.get("/", getProducts);
-router.post("/", addProduct);
-router.put("/:pid", updateProduct);
-router.delete("/:pid", deleteProduct);
+router.post("/", adminRoutes, addProduct);
+router.put("/:pid", adminRoutes, updateProduct);
+router.delete("/:pid", adminRoutes, deleteProduct);
 
 export default router;
