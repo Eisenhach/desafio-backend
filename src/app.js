@@ -15,6 +15,7 @@ import { __dirname } from "./path.js";
 import passport from "passport";
 import initializePassport from "./config/passport.config.js";
 import dotenv from "dotenv";
+import mockingRouter from "./routes/mockingRouter.js";
 
 //
 
@@ -71,6 +72,7 @@ app.use("/", viewsRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 app.use("/api", userRouter);
+app.use("/mockingproducts", mockingRouter);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
