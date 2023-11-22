@@ -1,4 +1,6 @@
 import productManager from "../dao/managers/productManager.js";
+import { EErrors } from "../repository/error.repository/enums.js";
+import { CustomError } from "../repository/error.repository/custom.error.repository.js";
 
 const productMgr = new productManager();
 
@@ -18,9 +20,16 @@ export const addProduct = async (req, res) => {
       req.body;
 
     if (!title || !description || !price || !stock) {
-      return res
-        .status(400)
-        .json({ error: "Todos los campos son obligatorios" });
+      CustomError.createError({
+        name: "Faltan agregar atributos del producto",
+        message:
+          `Te falta agregar ${title}` ||
+          `${description}` ||
+          `${price}` ||
+          `${stock}`,
+        code: EErrors.PRODUCT_MISSING_TYPE,
+        cause: "Faltan campos por completar",
+      });
     }
 
     const newProductId = await productMgr.getProductsById();
