@@ -14,7 +14,7 @@ class cartManager {
       const carts = await cartRepository.get();
       return carts;
     } catch (error) {
-      console.error("Fallo al obtener los productos", error);
+      logger.error(error);
     }
   }
 
@@ -23,7 +23,7 @@ class cartManager {
       const newCart = await cartRepository.add(cart);
       return newCart;
     } catch (error) {
-      console.error("Error en crear el cart", error);
+      logger.error(error);
     }
   }
 
@@ -32,7 +32,7 @@ class cartManager {
       const cart = await cartRepository.getById(id);
       return cart;
     } catch (error) {
-      console.error("Error al obtener el cart por ID", error);
+      logger.error(error);
     }
   }
 
@@ -52,9 +52,8 @@ class cartManager {
         selectedCart.products.push({ id: pid, quantity: 1 });
       }
       await selectedCart.save();
-      console.log("Producto añadido con exito");
     } catch (error) {
-      console.error("Error al añadir el producto al carrito", error);
+      logger.error(error);
     }
   }
 
@@ -68,7 +67,7 @@ class cartManager {
         return "Hubo un error eliminando el producto";
       }
     } catch (error) {
-      console.error("Error eliminando el producto", error);
+      logger.error(error);
     }
   }
 
@@ -123,7 +122,7 @@ class cartManager {
 
       return { newTicket, productsNotPurchased };
     } catch (error) {
-      console.error(error);
+      logger.error(error);
     }
   };
 }

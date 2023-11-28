@@ -6,15 +6,16 @@ import ProductManager from "./dao/managers/productManager.js";
 import cartsRouter from "./routes/cartsRouter.js";
 import userRouter from "./routes/userRouter.js";
 import viewsRouter from "./routes/viewsRouter.js";
+import loggerRouter from "./routes/loggerRouter.js";
 import handlebars from "express-handlebars";
 import mongoose from "mongoose";
 import { Server } from "socket.io";
 import { __dirname } from "./path.js";
+
 //
 
 import passport from "passport";
 import initializePassport from "./config/passport.config.js";
-import dotenv from "dotenv";
 import mockingRouter from "./routes/mockingRouter.js";
 
 //
@@ -26,9 +27,6 @@ const sv = app.listen(8080, () =>
 sv.on("error", (error) => console.log(error));
 const socketSv = new Server(sv);
 const productManager = new ProductManager();
-
-//dotenv
-dotenv.config();
 
 // me conecto a mi sv atlas
 mongoose.connect(process.env.MONGODB_URL);
@@ -68,7 +66,9 @@ app.use((req, res, next) => {
 });
 
 // Endpoints
+
 app.use("/", viewsRouter);
+app.use("/logger", loggerRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 app.use("/api", userRouter);

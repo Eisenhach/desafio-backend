@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
           console.error("Error al agregar el producto", error);
         }
       } catch (error) {
-        console.error(error);
+        logger.error(error);
       }
     });
   });

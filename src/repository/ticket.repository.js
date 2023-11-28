@@ -10,7 +10,7 @@ export class TicketRepository {
       });
       return newTicket;
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   };
 }

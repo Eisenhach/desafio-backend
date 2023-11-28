@@ -14,7 +14,7 @@ class productManager {
       const newProduct = await productRepository.add(product);
       console.log("Producto agregado a la base de datos");
     } catch (error) {
-      console.error("Error al guardar en la base de datos", error);
+      logger.error(error);
     }
   }
 
@@ -23,7 +23,7 @@ class productManager {
       const data = await productRepository.getById(id);
       return data;
     } catch (error) {
-      console.error("Error al buscar por ese ID", error);
+      logger.error(error);
     }
   }
 
@@ -37,7 +37,7 @@ class productManager {
         return "No se encontró ningún producto con el ID especificado";
       }
     } catch (error) {
-      console.error("Error al eliminar el producto:", error);
+      logger.error(error);
     }
   }
 
@@ -51,8 +51,7 @@ class productManager {
         return "No se realizó ninguna actualización";
       }
     } catch (error) {
-      console.error("Error al actualizar el producto:", error);
-      throw new Error("Error al actualizar el producto");
+      logger.error(error);
     }
   }
 

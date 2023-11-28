@@ -9,8 +9,8 @@ export const getProducts = async (req, res) => {
     const products = await productMgr.getPaginateProducts(req.query);
     res.send(products);
   } catch (error) {
-    console.error("Error al obtener productos", error);
-    res.status(500).json({ error: "Error 500 en el controller" });
+    logger.error(error);
+    res.status(500).send();
   }
 };
 
@@ -48,8 +48,8 @@ export const addProduct = async (req, res) => {
     await productMgr.addProduct(newProduct);
     res.status(201).json(newProduct);
   } catch (error) {
-    console.error("Error al agregar el producto:", error);
-    res.status(500).json({ error: "Error al agregar el producto" });
+    logger.error(error);
+    res.status(500).send();
   }
 };
 
@@ -60,8 +60,8 @@ export const updateProduct = async (req, res) => {
     await productMgr.updateProduct(id, update);
     res.send("Producto actualizado");
   } catch (error) {
-    console.error("Error al actualizar el producto:", error);
-    res.status(500).json({ error: "Error al actualizar el producto" });
+    logger.error(error);
+    res.status(500).send();
   }
 };
 
@@ -71,7 +71,7 @@ export const deleteProduct = async (req, res) => {
     await productMgr.deleteProduct(id);
     res.send("Producto eliminado");
   } catch (error) {
-    console.error("Error al eliminar el producto:", error);
-    res.status(500).json({ error: "Error al eliminar el producto" });
+    logger.error(error);
+    res.status(500).send();
   }
 };

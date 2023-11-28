@@ -1,4 +1,5 @@
 import cartManager from "../dao/managers/cartManager.js";
+import logger from "../repository/logger.repository/logger.js";
 
 const cartMgr = new cartManager();
 
@@ -13,7 +14,7 @@ export const getCarts = async (req, res) => {
 
     res.send(carts);
   } catch (error) {
-    console.error("Error al obtener carritos", error);
+    logger.error(error);
     res.status(500).json({ error: "Error 500 en el controller" });
   }
 };
@@ -24,7 +25,8 @@ export const createCart = async (req, res) => {
     const cart = await cartMgr.createCart({ products });
     res.send(cart);
   } catch (error) {
-    console.error("Error al crear el carrito", error);
+    logger.error(error);
+
     res.status(500).json({ error: "Error al crear el carrito" });
   }
 };
@@ -34,8 +36,8 @@ export const getCartById = async (req, res) => {
     const cart = await cartMgr.getCartById(req.params.cid);
     res.send(cart.products);
   } catch (error) {
-    console.error("Error al obtener el carrito por ID", error);
-    res.status(500).json({ error: "Error 500 en el controller" });
+    logger.error(error);
+    res.status(505).send();
   }
 };
 
@@ -46,8 +48,8 @@ export const addProductToCart = async (req, res) => {
     const cart = await cartMgr.addProductsToCart(cid, pid);
     res.send(cart);
   } catch (error) {
-    console.error("Error al agregar producto al carrito", error);
-    res.status(500).json({ error: "Error 500 en el controller" });
+    logger.error(error);
+    res.status(500).send();
   }
 };
 
@@ -57,8 +59,8 @@ export const removeProductFromCart = async (req, res) => {
     await cartMgr.removeProductFromCart(cid, pid);
     res.status(200).send(`Producto eliminado bajo el ID del carrito ${cid}`);
   } catch (error) {
-    console.error("Error al eliminar producto del carrito", error);
-    res.status(500).json({ error: "Error 500 en el controller" });
+    logger.error(error);
+    res.status(500).send();
   }
 };
 
@@ -69,7 +71,7 @@ export const purchase = async (req, res) => {
     const newTicket = await cartMgr.purchaseCart(cartId, purchaser);
     res.status(200).send({ status: "success", ticket: newTicket });
   } catch (error) {
-    console.log(error);
+    logger.error(error);
     res.status(500).send();
   }
 };
