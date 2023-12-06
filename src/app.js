@@ -7,6 +7,7 @@ import cartsRouter from "./routes/cartsRouter.js";
 import userRouter from "./routes/userRouter.js";
 import viewsRouter from "./routes/viewsRouter.js";
 import loggerRouter from "./routes/loggerRouter.js";
+import restablecerRouter from "./routes/restablecerRouter.js";
 import handlebars from "express-handlebars";
 import mongoose from "mongoose";
 import { Server } from "socket.io";
@@ -44,7 +45,7 @@ app.use(
   session({
     store: MongoStore.create({
       mongoUrl: process.env.MONGODB_URL,
-      ttl: 15,
+      ttl: 100,
     }),
     secret: process.env.SESSION_SECRET,
     resave: false,
@@ -68,6 +69,7 @@ app.use((req, res, next) => {
 // Endpoints
 
 app.use("/", viewsRouter);
+app.use("/reset-password", restablecerRouter);
 app.use("/logger", loggerRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
