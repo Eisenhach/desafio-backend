@@ -1,0 +1,5 @@
+paths:
+  users-shcema:
+    get:
+      summary: Esquema del usuario que se refleja en la base de datos
+      tags: -User schema

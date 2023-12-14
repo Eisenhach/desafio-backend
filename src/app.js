@@ -12,6 +12,8 @@ import handlebars from "express-handlebars";
 import mongoose from "mongoose";
 import { Server } from "socket.io";
 import { __dirname } from "./path.js";
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUiExpress from "swagger-ui-express";
 
 //
 
@@ -66,9 +68,22 @@ app.use((req, res, next) => {
   next();
 });
 
+const swaggerOptions = {
+  definition: {
+    openapi: "3.0.1",
+    info: {
+      title: "Documentacion",
+      description: "Documentacion APi",
+    },
+  },
+  apis: [`${__dirname}/docs/**/*.yaml`],
+};
+const specs = swaggerJSDoc(swaggerOptions);
+
 // Endpoints
 
 app.use("/", viewsRouter);
+app.use("/docs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 app.use("/reset-password", restablecerRouter);
 app.use("/logger", loggerRouter);
 app.use("/api/products", productsRouter);
