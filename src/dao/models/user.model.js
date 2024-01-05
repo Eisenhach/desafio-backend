@@ -17,6 +17,13 @@ const userSchema = new mongoose.Schema({
     ref: "carts",
     default: "651cc09a80586b8b948e267d",
   },
+  documents: {
+    Name: String,
+    reference: String,
+  },
+  last_connection: {
+    time: Date.now,
+  },
   resetCode: {
     type: String,
     default: resetRepository.create,
