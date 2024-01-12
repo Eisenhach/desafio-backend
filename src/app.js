@@ -88,7 +88,7 @@ app.use("/reset-password", restablecerRouter);
 app.use("/logger", loggerRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
-app.use("/api", userRouter);
+app.use("/api/users", userRouter);
 app.use("/mockingproducts", mockingRouter);
 
 app.use((err, req, res, next) => {

@@ -22,7 +22,10 @@ const userSchema = new mongoose.Schema({
     reference: String,
   },
   last_connection: {
-    time: Date.now,
+    time: {
+      type: Date,
+      default: Date.now,
+    },
   },
   resetCode: {
     type: String,

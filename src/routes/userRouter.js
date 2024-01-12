@@ -64,4 +64,15 @@ userRouter.get(
   }
 );
 
+// Proyecto final PPT
+
+userRouter.get("/get", async (req, res) => {
+  try {
+    const users = userModel.find().lean();
+    res.render("userList", { users });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 export default userRouter;
